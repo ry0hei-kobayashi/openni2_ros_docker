@@ -1,18 +1,21 @@
 version: '3'
 services:
-  xtion_camera:
+  xtion_camera_humble:
     build: .
-    container_name: xtion_ros
+    container_name: xtion_ros2
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
     devices:
       - "/dev/bus/usb:/dev/bus/usb"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix 
     privileged: true
-    network_mode: host
+    #network_mode: host
+    network_mode: bridge #important for network setting
+    ipc: host
+    #pid: host
 
-    # roslaunchでopenni2の起動を指定
-    command: ["roslaunch", "openni2_launch", "openni2.launch"]
+    command: ros2 launch openni2_camera camera_with_cloud.launch.py
 

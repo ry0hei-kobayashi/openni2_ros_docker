@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-source /opt/ros/noetic/setup.bash
+source /opt/ros/humble/setup.bash
 
 # allowing access to the usb device 
 exec "$@"

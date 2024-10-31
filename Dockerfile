@@ -1,17 +1,14 @@
-FROM ros:noetic-ros-base
+FROM ros:humble-ros-base
 
 RUN apt-get update && apt-get install -y \
-    ros-noetic-openni2-camera \
-    ros-noetic-openni2-launch \
     libusb-1.0-0-dev \
+    libopenni2-dev \
+    ros-humble-camera-info-manager \
+    ros-humble-image-transport \
+    ros-humble-openni2-camera \
     && rm -rf /var/lib/apt/lists/*
-
-RUN /bin/bash -c "source /opt/ros/noetic/setup.bash"
 
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
-# コンテナ起動時にroslaunchでXtionを立ち上げる
-CMD ["roslaunch", "openni2_launch", "openni2.launch"]
 
