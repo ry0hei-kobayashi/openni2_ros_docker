@@ -1,0 +1,18 @@
+version: '3'
+services:
+  xtion_camera:
+    build: .
+    container_name: xtion_ros
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    devices:
+      - "/dev/bus/usb:/dev/bus/usb"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix 
+    privileged: true
+    network_mode: host
+
+    # roslaunchでopenni2の起動を指定
+    command: ["roslaunch", "openni2_launch", "openni2.launch"]
+
