@@ -11,11 +11,13 @@ services:
       - "/dev/bus/usb:/dev/bus/usb"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix 
+      - ./openni2_interfaces/:/colcon_ws/src/openni2_interfaces/
+      - ./openni2_service/:/colcon_ws/src/openni2_service/
     privileged: true
     #network_mode: host
     network_mode: bridge #important for network setting
     ipc: host
     #pid: host
 
-    command: ros2 launch openni2_camera camera_with_cloud.launch.py
+    command: ros2 launch openni2_service openni2_image_service.launch.py
 
